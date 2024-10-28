@@ -1,6 +1,7 @@
 "use strict";
 
 var fileHandle = null;
+var fileName = null;
 
 const MAX_TOTAL = 147;
 
@@ -13,9 +14,8 @@ const PINK = 6;
 const BLACK = 7;
 const GRAY = 0;
 
-// TODO
-//var colorsLeft = [0, 15, 1, 1, 1, 1, 1, 1];
-var colorsLeft = [0, 4, 1, 1, 1, 1, 1, 1];
+var colorsLeft = [0, 15, 1, 1, 1, 1, 1, 1];
+//var colorsLeft = [0, 4, 1, 1, 1, 1, 1, 1];
 
 var player1name = "";
 var player2name = "";
@@ -225,6 +225,7 @@ function resetAll(skipConfirmation = false) {
 function startNew() {
     if (confirm("Are you sure?")) {
         resetAll(true);
+        fileHandle = null;
         
         player1name = "";
         player2name = "";
@@ -252,11 +253,12 @@ async function saveFile(prompt = true) {
             suggestedName: "game-status-1.json"
         };
         fileHandle = await window.showSaveFilePicker(filePickerOpts);
+        fileName = fileHandle.name;
     }
     const writableStream = await fileHandle.createWritable();
     await writableStream.write(JSON.stringify(data));
     await writableStream.close();
-    showNotification("saved");
+    showNotification(`saved: ${fileName}`);
 }
 
 function createPersistData() {
