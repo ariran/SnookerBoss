@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="snooker-boss.css">
+    <script src="snooker-boss.js"></script>
+</head>
+<body>
+    <div style="rotate: -90deg; position: fixed; translate: -30% 100%">
+        <h1>The Snooker Boss</h1>
+    </div>
+    <div id="players" class="center border">
+        <form id="playersform">
+            <label for="player1name">Player 1 name:</label>
+            <input type="text" id="player1name" name="player1name" value="" /><br><br>
+            <label for="player2name">Player 2 name:</label>
+            <input type="text" id="player2name" name="player2name" value="" /><br><br>
+
+            <button type="button" onclick="savePlayers()">Start</button>
+            <button type="button" onclick="loadPersistData()">Load</button>
+        </form>
+    </div>
+
+    <div id="game" class="center" style="display: none">
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <td width="80%">
+                        <table class="border" width="100%">
+                            <tbody>
+                                <tr>
+                                    <th id="player1" accesskey="z" class="selected" onclick="selectPlayer(1)"></th>
+                                    <th id="player2" accesskey="x" onclick="selectPlayer(2)"></th>
+                                </tr>
+                                <tr>
+                                    <td id="total1" class="totalpoints">0</td>
+                                    <td id="total2" class="totalpoints">0</td>
+                                </tr>
+                                <tr>
+                                    <td id="snookers1" class="neededsnookers" style="visibility: hidden">0</td>
+                                    <td id="snookers2" class="neededsnookers" style="visibility: hidden">0</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><span id="points-left" style="visibility: hidden">147</span></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <table id="colorbuttons" width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td><span class="dot" accesskey="r" style="background-color: Red" onclick="addPoints(RED, this)"></span></td>
+                                                    <td><span class="dot" accesskey="b" style="background-color: Black" onclick="addPoints(BLACK, this)"></span></td>
+                                                    <td><span class="dot" accesskey="p" style="background-color: DeepPink" onclick="addPoints(PINK, this)" /></td>
+                                                    <td><span class="dot" accesskey="l" style="background-color: Blue" onclick="addPoints(BLUE, this)" /></td>
+                                                    <td><span class="dot" accesskey="n" style="background-color: SaddleBrown" onclick="addPoints(BROWN, this)" /></td>
+                                                    <td><span class="dot" accesskey="g" style="background-color: Green" onclick="addPoints(GREEN, this)" /></td>
+                                                    <td><span class="dot" accesskey="y" style="background-color: Yellow" onclick="addPoints(YELLOW, this)" /></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <input type="text" id="extra" /><button id="extraButton" onclick="addExtra()">+</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td width="20%">
+                        <table id="actionbuttons" width="100%">
+                            <tbody>
+                                <tr><td><button type="button" accesskey="s" onclick="saveFile()"><span class="accesskey">S</span>ave</button></td></tr>
+                                <tr><td><button type="button" accesskey="t" onclick="resetAll()">Rese<span class="accesskey">t</span></button></td></tr>
+                                <tr><td><button type="button" accesskey="w" onclick="startNew()">Start ne<span class="accesskey">w</span></button></td></tr>
+                                <tr><td><button type="button" accesskey="u" onclick="undoLast()"><span class="accesskey">U</span>ndo last</button></td></tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr id="notification" class="hidden"><td>Saved</td></tr>
+                <tr><td id="filepath" class="filepath"></td></tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
